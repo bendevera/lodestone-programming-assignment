@@ -139,7 +139,7 @@
         <div class="alert alert-light" role="alert">
             By reviewing this data and assessing where raters are commonly making mistakes, you can adjust the instructions given to raters to 
             better explain the process. You can also find which raters provide the highest precision/recall and reuse them in hopes that their 
-            performance will stay consistent or evn improve overtime. Another issue that could occur with raters is the "random selection" of labels
+            performance will stay consistent or even improve overtime. Another issue that could occur with raters is the "random selection" of labels
             by raters in hopes to quickly complete their tasks. To mitigate this, a non-visual timer could be set and alert the rater if their labeling 
             speeds increase a certain threshold.
         </div>
@@ -148,13 +148,21 @@
             How do you improve precision of a label overtime?
         </div>
 
+        <div class="alert alert-light" role="alert">
+            One technique that could be used, is showing the same task to multiple raters and assigning the label to the mode of the labels 
+            assigned by the raters before using the dataset for training/testing a model since each example should be in the dataset only once.
+        </div>
+
         <div class="alert alert-secondary" role="alert">
             What changes are needed or required to improve your dataset to achieve over 90% agreement, precision, or
 recall?
         </div>
 
-        <div class="alert alert-secondary" role="alert">
-            Why do some raters perform better than others?
+        <div class="alert alert-light" role="alert">
+            In terms of the randomly generated data, I would improve the agreement %, precision and recall by adding a weight
+            to the liklihood of the correct label being chosen when generating the data. To improve these values in a live setting,
+            it would be advantageous to better train raters for the specific tasks (maybe through the creation of youtube videos) and/or 
+            add an incentive to correct labels by basing their pay off of their agreement % (accuracy), precision, and recall.
         </div>
     </div>
 
