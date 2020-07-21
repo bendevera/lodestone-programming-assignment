@@ -71,7 +71,7 @@ def build_database(cursor, data_count=10000):
 
 
 if __name__ == "__main__":
-    connection = sqlite3.connect('./db2.sqlite')
+    connection = sqlite3.connect('./db.sqlite')
     cursor = connection.cursor()
     if len(sys.argv) == 1:
         build_database(cursor)
