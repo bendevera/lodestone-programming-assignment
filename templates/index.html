@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lodestone Programming Assignment</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">Lodestone Programming Assignment</span>
+    </nav>
+
+    <div class="container my-2">
+        <h2>View the data</h2>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Rater ID</th>
+                <th scope="col">Date</th>
+                <th scope="col">Correct Label 3</th>
+                <th scope="col">Rater Label 3</th>
+                <th scope="col">Label 3 Agreement</th>
+                <th scope="col">Correct Label 5</th>
+                <th scope="col">Rater Label 5</th>
+                <th scope="col">Label 5 Agreement</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for row in data_excerpt %}
+                <tr>
+                    <th scope="row">{{row[0]}}</th>
+                    <td>{{row[1]}}</td>
+                    <td>{{row[2]}}</td>
+                    <td>{{row[3]}}</td>
+                    <td>{{row[4]}}</td>
+                    {% if row[5] == 1 %}
+                    <td>True</td>
+                    {% else %}
+                    <td>False</td>
+                    {% endif %}
+                    <td>{{row[6]}}</td>
+                    <td>{{row[7]}}</td>
+                    {% if row[8] == 1 %}
+                    <td>True</td>
+                    {% else %}
+                    <td>False</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+
+    <div class="container my-2">
+        <h2>Visualizations/Calculations</h2>
+        <div class="alert alert-secondary" role="alert">
+            What is the agreement rate between the engineer and all the raters for each day?
+        </div>
+        <div class="text-center">
+            <img src="{{url_for('static',filename = 'agreement_rates_by_day.png')}}" />
+        </div>
+
+        <div class="alert alert-secondary" role="alert">
+            Identify raters that have the highest/lowest agreement rates with the engineer.
+        </div>
+        <div class="text-center">
+            <img src="{{url_for('static',filename = 'agreement_rates_by_rater.png')}}" />
+        </div>
+
+        <div class="alert alert-secondary" role="alert">
+            Identify raters that have completed the most/least Task IDs.
+        </div>
+        <div class="text-center">
+            <img src="{{url_for('static',filename = 'completed_tasks_by_rater.png')}}" />
+        </div>
+
+        <div class="alert alert-secondary" role="alert">
+            What is the precision/recall for each of the 5 labels?
+        </div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Label</th>
+                <th scope="col">Precision</th>
+                <th scope="col">Recall</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for row in precision_recall.five_labels %}
+                <tr>
+                    <th scope="row">{{row.label}}</th>
+                    <td>{{row.precision}}%</td>
+                    <td>{{row.recall}}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="alert alert-secondary" role="alert">
+            What is the precision/recall for each of the 3 labels?
+        </div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Label</th>
+                <th scope="col">Precision</th>
+                <th scope="col">Recall</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for row in precision_recall.three_labels %}
+                <tr>
+                    <th scope="row">{{row.label}}</th>
+                    <td>{{row.precision}}%</td>
+                    <td>{{row.recall}}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="alert alert-secondary" role="alert">
+            What is the overall agreement rate considering that the raters have to be in agreement with both the 
+            engineer's 3-label answer and the engineer's 5-label answer?
+        </div>
+
+        <div class="alert alert-light" role="alert">
+            Overall agreement rate: 6.72%
+        </div>
+    </div>
+
+    <div class="container my-2">
+        <h2>Questions to Consider</h2>
+        <div class="alert alert-secondary" role="alert">
+            What can you do to improve agreement rates overtime?
+        </div>
+
+        <div class="alert alert-light" role="alert">
+            By reviewing this data and assessing where raters are commonly making mistakes, you can adjust the instructions given to raters to 
+            better explain the process. You can also find which raters provide the highest precision/recall and reuse them in hopes that their 
+            performance will stay consistent or evn improve overtime. Another issue that could occur with raters is the "random selection" of labels
+            by raters in hopes to quickly complete their tasks. To mitigate this, a non-visual timer could be set and alert the rater if their labeling 
+            speeds increase a certain threshold.
+        </div>
+
+        <div class="alert alert-secondary" role="alert">
+            How do you improve precision of a label overtime?
+        </div>
+
+        <div class="alert alert-secondary" role="alert">
+            What changes are needed or required to improve your dataset to achieve over 90% agreement, precision, or
+recall?
+        </div>
+
+        <div class="alert alert-secondary" role="alert">
+            Why do some raters perform better than others?
+        </div>
+    </div>
+
+    <div class="container my-2">
+        <h2>SQL Query</h2>
+        <code>SELECT AVG(label_three_agreement), AVG(label_five_agreement), rater_id</code><br>
+        <code>FROM data_ratings</code><br>
+        <code>WHERE date = '2005-10-06'</code><br>
+        <code>GROUP BY rater_id;</code>
+
+        <div class="alert alert-light" role="alert">
+            [(0.2463768115942029, 0.2028985507246377, 'A'), (0.3333333333333333, 0.13636363636363635, 'B'), (0.3492063492063492, 0.14285714285714285, 'C'), (0.30357142857142855, 0.21428571428571427, 'D'), (0.36538461538461536, 0.21153846153846154, 'E')]
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+    "five_labels": [
+        {
+            "label": "Great",
+            "precision": 19.3,
+            "recall": 20.1
+        },
+        {
+            "label": "Bad",
+            "precision": 19.5,
+            "recall": 20
+        },
+        {
+            "label": "Intermediate",
+            "precision": 20.3,
+            "recall": 19.1
+        },
+        {
+            "label": "Exceptional",
+            "precision": 20.9,
+            "recall": 21
+        },
+        {
+            "label": "Okay",
+            "precision": 18.9,
+            "recall": 18.6
+        }
+    ],
+    "three_labels": [
+        {
+            "label": "Low",
+            "precision": 34,
+            "recall": 33.9
+        },
+        {
+            "label": "Average",
+            "precision": 33.1,
+            "recall": 32.9
+        },
+        {
+            "label": "High",
+            "precision": 33.2,
+            "recall": 33.5
+        }
+    ]
+}
