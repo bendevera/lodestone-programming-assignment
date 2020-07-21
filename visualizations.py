@@ -21,9 +21,26 @@ for day in dates:
     agreement_rate = (label_five_agreement + label_three_agreement) / (rows_for_day.shape[0]*2)
     agreement_rates.append(agreement_rate)
 
+fig, ax = plt.subplots(figsize=(10, 3))    
+ind = np.arange(len(agreement_rates)) # the x locations for the groups
+# plt.bar([date[-2:] for date in dates], agreement_rates, width=width)
+# plt.figure(figsize=(10, 3))  # width:20, height:3
+plt.bar([date[-2:] for date in dates], agreement_rates, align='edge', width=0.3)
+ax.set_yticks([value/100 for value in range(0, 35, 5)])
+ax.set_yticklabels([str(value)+"%" for value in range(0, 31, 5)], minor=False)
+ax.set_xticks([value for value in range(0, 30)])
+ax.set_xticklabels([str(value) for value in range(1, 31)])
+
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
+plt.ylabel('Agreement Rate')
+plt.xlabel('Day')      
+# plt.savefig('agreement_rates_by_rater.png')
+# plt.show()
+
 plt.title('Agreement Rates by Day')
-plt.bar([date[-2:] for date in dates], agreement_rates)
 plt.savefig('agreement_rates_by_day.png')
+plt.show()
 plt.clf()
 
 """
